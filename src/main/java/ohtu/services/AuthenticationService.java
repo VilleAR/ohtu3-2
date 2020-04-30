@@ -37,9 +37,29 @@ public class AuthenticationService {
 
         return true;
     }
+    public boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
+    
+        for (char c : chars) {
+            if(!Character.isLetter(c)) {
+                return false;
+            }
+        }
+    
+        return true;
+    }
 
     private boolean invalid(String username, String password) {
         // validity check of username and password
+        if (username.length()<3) {
+            return true;
+        }
+        if (password.length()<8) {
+            return true;
+        }
+        if (isAlpha(password)) {
+            return true;
+        }
 
         return false;
     }

@@ -6,7 +6,7 @@ import ohtu.io.ConsoleIO;
 import ohtu.io.IO;
 import ohtu.services.AuthenticationService;
 import java.util.Arrays;
-
+import java.util.ArrayList;
 public class App {
 
     private IO io;
@@ -25,6 +25,8 @@ public class App {
     }
 
     public void run() {
+        ArrayList<String> usernames = new ArrayList<String>();
+        usernames.add("pekka");
         while (true) {
             String command = io.readLine("komento (new tai login):");
 
@@ -35,7 +37,11 @@ public class App {
             if (command.equals("new")) {
                 String[] usernameAndPasword = ask();
                 if (auth.createUser(usernameAndPasword[0], usernameAndPasword[1])) {
-                    io.print("new user registered");
+                    if (!usernames.contains(usernameAndPasword[0])) {
+                        io.print("new user registered");
+                        usernames.add(usernameAndPasword[0]);
+                    }
+                    
                 } else {
                     io.print("new user not registered");
                 }
